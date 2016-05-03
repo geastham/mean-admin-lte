@@ -34,18 +34,18 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="https://almsaeedstudio.com/themes/AdminLTE/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-  <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+  <link rel="stylesheet" href="https://almsaeedstudio.com/themes/AdminLTE/dist/css/skins/_all-skins.min.css">
 
   <!-- Application CSS Files -->
   {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
@@ -83,11 +83,11 @@ desired effect
   <!-- Outer Wrapper -->
   <div class="wrapper">
     <!-- Main Header -->
-    <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
+    <header class="main-header" ng-include="'/modules/core/client/views/header.client.view.html'"></header>
     <!-- /.main-header -->
 
     <!-- Left Sidebar -->
-    <aside class="main-sidebar"></aside>
+    <aside class="main-sidebar" ng-include="'/modules/core/client/views/main.sidebar.client.view.html'"></aside>
     <!-- /.left-sidebar -->
 
     <!-- Content Wrapper. Contains page content -->
@@ -97,10 +97,10 @@ desired effect
     <!-- /.content-wrapper -->
 
     <!-- Main Footer -->
-    <footer class="main-footer"></footer>
+    <footer class="main-footer" ng-include="'/modules/core/client/views/footer.client.view.html'"></footer>
     <!-- /.main-footer -->
 
-    <aside class="control-sidebar control-sidebar-dark"></aside>
+    <aside class="control-sidebar control-sidebar-dark" ng-include="'/modules/core/client/views/control.sidebar.client.view.html'"></aside>
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
@@ -118,6 +118,9 @@ desired effect
 
   <!-- jQuery 2.2.0 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+  <!-- Bootstrap 3.3.6 -->
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   <!-- Admin LTE App -- TODO: fix jsLint issues and move into core client app -->
   <script type="text/javascript" src="https://almsaeedstudio.com/themes/AdminLTE/dist/js/app.min.js"></script>
