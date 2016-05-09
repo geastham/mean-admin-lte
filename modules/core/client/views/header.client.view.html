@@ -112,13 +112,20 @@
           </ul>
         </li>
         <!-- User Account Menu -->
-        <li class="dropdown user user-menu">
+        <li class="dropdown user user-menu" ng-hide="authentication.user != ''">
+          <!-- Sign In -->
+          <a href="#" ui-sref="authentication.signin" class="dropdown-toggle" data-toggle="dropdown">
+            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+            <span class="hidden-xs">Log In</span>
+          </a>
+        </li>
+        <li class="dropdown user user-menu" ng-hide="authentication.user == ''">
           <!-- Menu Toggle Button -->
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <!-- The user image in the navbar-->
             <img src="https://media.licdn.com/media/p/6/005/07d/289/38643a2.jpg" class="user-image" alt="User Image">
             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-            <span class="hidden-xs">Garrett Eastham</span>
+            <span class="hidden-xs">{{authentication.user.displayName}}</span>
           </a>
           <ul class="dropdown-menu">
             <!-- The user image in the menu -->
@@ -126,7 +133,7 @@
               <img src="https://media.licdn.com/media/p/6/005/07d/289/38643a2.jpg" class="img-circle" alt="User Image">
 
               <p>
-                Garrett Eastham - Chief Data Scientist
+                {{authentication.user.displayName}} - Chief Data Scientist
                 <small>Member since March 2012</small>
               </p>
             </li>
@@ -151,7 +158,7 @@
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
-                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                <a href="/api/auth/signout" target="_self" class="btn btn-default btn-flat">Sign out</a>
               </div>
             </li>
           </ul>
