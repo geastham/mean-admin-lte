@@ -93,7 +93,8 @@ angular.module('core').service('Menus', [
         roles: ((options.roles === null || typeof options.roles === 'undefined') ? this.defaultRoles : options.roles),
         position: options.position || 0,
         items: [],
-        shouldRender: shouldRender
+        shouldRender: shouldRender,
+        icon: options.icon || 'fa-bookmark-o'
       });
 
       // Add submenu items

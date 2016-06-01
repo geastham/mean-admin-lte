@@ -8,7 +8,8 @@ angular.module('articles').run(['Menus',
       title: 'Articles',
       state: 'articles',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['*'],
+      icon: 'fa-sticky-note-o'
     });
 
     // Add the dropdown list item
