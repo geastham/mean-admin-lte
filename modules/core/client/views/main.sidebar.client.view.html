@@ -28,15 +28,12 @@
 
     <!-- Sidebar Menu -->
     <ul class="sidebar-menu">
-      <li class="header">HEADER</li>
+      <li class="header">Modules</li>
       <!-- Optionally, you can add icons to the links -->
-      <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-      <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-      <li class="treeview">
-        <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
-        <ul class="treeview-menu">
-          <li><a href="#">Link in level 2</a></li>
-          <li><a href="#">Link in level 2</a></li>
+      <li ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);" ng-class="{ treeview: item.type === 'dropdown', active: $state.includes(item.state) }">
+        <a ui-sref="{{item.state}}"><i class="fa fa-link"></i> <span>{{item.title}}</span> <i ng-if="item.type === 'dropdown'" class="fa fa-angle-left pull-right"></i></a>
+        <ul ng-if="item.type === 'dropdown'" class="treeview-menu">
+          <li ng-repeat="subitem in item.items | orderBy: 'position'"><a ui-sref="{{subitem.state}}">{{subitem.title}}</a></li>
         </ul>
       </li>
     </ul>
