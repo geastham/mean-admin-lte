@@ -8,7 +8,13 @@ angular.module('articles').config(['$stateProvider',
       .state('articles', {
         abstract: true,
         url: '/articles',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        data: {
+          metadata: {
+            header: 'Articles',
+            description: 'Create and edit existing or new articles'
+          }
+        }
       })
       .state('articles.list', {
         url: '',

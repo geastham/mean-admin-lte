@@ -8,7 +8,11 @@ angular.module('chat').config(['$stateProvider',
         url: '/chat',
         templateUrl: 'modules/chat/client/views/chat.client.view.html',
         data: {
-          roles: ['user', 'admin']
+          roles: ['user', 'admin'],
+          metadata: {
+            header: 'Chat',
+            description: 'A simple chat service to talk with other active visitors'
+          }
         }
       });
   }
