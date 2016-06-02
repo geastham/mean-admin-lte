@@ -1,10 +1,10 @@
 {% extends 'layout.server.view.html' %}
 
 {% block content %}
-<!-- Content Header (Page header) -->
-  <section ng-controller="ModuleHeaderController" class="content-header" ng-include="'/modules/core/client/views/module.header.client.view.html'"></section>
+      <!-- Content Header (Page header) -->
+      <section class="content-header" ng-controller="ModuleHeaderController" ng-include="'/modules/core/client/views/module.header.client.view.html'"></section>
 
-  <!-- Main content -->
-  <section class="content" ui-view></section>
-  <!-- /.content -->
+      <!-- Main content -->
+      <section class="content" ui-view></section>
+      <!-- /.content -->
 {% endblock %}

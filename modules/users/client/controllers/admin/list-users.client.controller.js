@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin',
-  function ($scope, $filter, Admin) {
+angular.module('users.admin').controller('UserListController', ['$scope', '$filter', '$state', 'Admin', 'Metadata',
+  function ($scope, $filter, $state, Admin, Metadata) {
+    // Update module metatdata
+    Metadata.updateMetadata($state);
+
     Admin.query(function (data) {
       $scope.users = data;
       $scope.buildPager();

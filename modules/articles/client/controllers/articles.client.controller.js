@@ -1,9 +1,12 @@
 'use strict';
 
 // Articles controller
-angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles',
-  function ($scope, $stateParams, $location, Authentication, Articles) {
+angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles', 'Metadata',
+  function ($scope, $stateParams, $location, Authentication, Articles, Metadata) {
     $scope.authentication = Authentication;
+
+    // Update module metatdata
+    Metadata.updateMetadata();
 
     // Create new Article
     $scope.create = function (isValid) {

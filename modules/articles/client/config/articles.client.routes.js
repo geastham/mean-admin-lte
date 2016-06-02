@@ -18,24 +18,44 @@ angular.module('articles').config(['$stateProvider',
       })
       .state('articles.list', {
         url: '',
-        templateUrl: 'modules/articles/client/views/list-articles.client.view.html'
+        templateUrl: 'modules/articles/client/views/list-articles.client.view.html',
+        data: {
+          metadata: {
+            header: 'Existing Articles',
+            description: 'These are all the current existing articles'
+          }
+        }
       })
       .state('articles.create', {
         url: '/create',
         templateUrl: 'modules/articles/client/views/create-article.client.view.html',
         data: {
-          roles: ['user', 'admin']
+          roles: ['user', 'admin'],
+          metadata: {
+            header: 'New Article',
+            description: 'Create a new article'
+          }
         }
       })
       .state('articles.view', {
         url: '/:articleId',
-        templateUrl: 'modules/articles/client/views/view-article.client.view.html'
+        templateUrl: 'modules/articles/client/views/view-article.client.view.html',
+        data: {
+          metadata: {
+            header: 'View Article',
+            description: 'View this article contents'
+          }
+        }
       })
       .state('articles.edit', {
         url: '/:articleId/edit',
         templateUrl: 'modules/articles/client/views/edit-article.client.view.html',
         data: {
-          roles: ['user', 'admin']
+          roles: ['user', 'admin'],
+          metadata: {
+            header: 'Edit Article',
+            description: 'Edit this article contents'
+          }
         }
       });
   }

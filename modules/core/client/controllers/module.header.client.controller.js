@@ -1,14 +1,16 @@
 'use strict';
 
-angular.module('core').controller('ModuleHeaderController', ['$scope', '$state',
-  function ($scope, $state) {
+angular.module('core').controller('ModuleHeaderController', ['$scope', '$state', 'Metadata',
+  function ($scope, $state, Metadata) {
+    // Set initial metadata
+    $scope.metadata = Metadata.module;
 
-    console.info($state.current);
-
-    // Set metadata for module header
-    $scope.metadata = ($state.current.data && $state.current.data.metadata) ? $state.current.data.metadata : {
-      header: 'Page Header',
-      description: 'Optional description'
+    // Create scope update callback
+    var updateScope = function() {
+      $scope.metadata = Metadata.module;
     }
+
+    // Watch for external changes to metadata
+    Metadata.onChange(updateScope);
   }
 ]);
