@@ -1,33 +1,30 @@
-<div ng-controller="AuthenticationController">
-  <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
-    <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username" lowercase required>
-          <div ng-messages="userForm.username.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Username is required.</p>
-          </div>
-        </div>
-        <div class="form-group" show-errors>
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password" required>
-          <div ng-messages="userForm.password.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Password is required.</p>
-          </div>
-        </div>
-        <div class="text-center form-group">
-          <button type="submit" class="btn btn-primary">Sign in</button>
-          &nbsp; or&nbsp;
-          <a ui-sref="authentication.signup">Sign up</a>
-        </div>
-        <div class="text-center forgot-password">
-          <a ui-sref="password.forgot">Forgot your password?</a>
-        </div>
-        <alert type="danger" ng-show="error" class="text-center text-danger">
-          <span ng-bind="error"></span>
-        </alert>
-      </fieldset>
-    </form>
+<div ng-controller="AuthenticationController" class="login-full-screen">
+
+  <div class="login-page">
+      <div class="form">
+      <div class="login-title">
+        <span class="logo-lg"><b>Admin</b>LTE</span>
+      </div>
+      <form class="register-form" name="userForm" ng-submit="signup(userForm.$valid)">
+        <input type="text" placeholder="first name" name="firstName" ng-model="credentials.firstName"/>
+        <input type="text" placeholder="last name" name="lastName" ng-model="credentials.lastName"/>
+        <input type="text" placeholder="username" name="username" ng-model="credentials.username"/>
+        <input type="text" placeholder="email address" name="email" ng-model="credentials.email"/>
+        <input type="password" placeholder="password" name="password" ng-model="credentials.password"/>
+        <button>create</button>
+        <p class="message">Already registered? <a href="#">Sign In</a></p>
+      </form>
+      <form class="login-form" name="userForm" ng-submit="signin(userForm.$valid)">
+        <input type="text" placeholder="username" name="username" ng-model="credentials.username"/>
+        <input type="password" placeholder="password" name="password" ng-model="credentials.password"/>
+        <button>login</button>
+        <p class="message">Not registered? <a href="#">Create an account</a></p>
+      </form>
+    </div>
   </div>
 </div>
+<script type="text/javascript">
+  $('.message a').click(function(){
+     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+  });
+</script>

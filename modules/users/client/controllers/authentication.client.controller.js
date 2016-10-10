@@ -12,6 +12,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $location.path('/');
     }
 
+    // Hide all other parts of the UI
+    window.$('header').hide();
+    window.$('.content-header').hide();
+    window.$('aside').hide();
+    window.$('.content-wrapper').css({ 'margin-left' : '0px'});
+    window.$('.content').css({ 'padding-top' : '0px'});
+
     $scope.signup = function (isValid) {
       $scope.error = null;
 
@@ -27,6 +34,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
+
+        // Unhide all other parts of the UI
+        window.$('header').show();
+        window.$('.content-header').show();
+        window.$('aside').show();
+        window.$('.content-wrapper').css({ 'margin-left' : '230px'});
+        window.$('.content').css({ 'padding-top' : '15px'});
       }).error(function (response) {
         $scope.error = response.message;
       });
@@ -47,6 +61,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
+
+        // Unhide all other parts of the UI
+        window.$('header').show();
+        window.$('.content-header').show();
+        window.$('aside').show();
+        window.$('.content-wrapper').css({ 'margin-left' : '230px'});
+        window.$('.content').css({ 'padding-top' : '15px'});
       }).error(function (response) {
         $scope.error = response.message;
       });
