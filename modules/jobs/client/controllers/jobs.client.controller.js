@@ -6,6 +6,16 @@ angular.module('jobs').controller('JobsController', ['$scope', '$location', '$st
     // Update module metatdata
     Metadata.updateMetadata();
 
-    
+    // Initialize jobs
+    $scope.jobs = [
+      {
+        status: ['Scheduled', 'Completed'],
+        name: 'getEvents',
+        lastRunStarted: '2 minutes ago',
+        nextRun: 'In 3 minutes',
+        lastRunFinished: '2 minutes ago',
+        locked: false
+      }
+    ];
   }
 ]);
