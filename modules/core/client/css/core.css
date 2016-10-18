@@ -1,6 +1,4 @@
-.content {
-  margin-top: 50px;
-}
+
 .undecorated-link:hover {
   text-decoration: none;
 }
@@ -39,4 +37,8 @@ a:hover .header-profile-image {
 /* -- Admin Style Overrides --*/
 body#admin_body {
   font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.page-header {
+  margin: 0px 0px 0px 0px;
 }
