@@ -22,7 +22,7 @@ module.exports = function(agenda) {
 		 *  * message: string message that you wish to print to console
 		 *
 		 */
-		printToConsole: function(interval, data) {
+		printToConsole: function(interval, data, successCallback, failureCallback) {
 			if(data.identifer && data.message) {
 				// Create derived job name
 				var derivedJobName = moduleName + ':printToConsole:' + data.identifier;
@@ -39,6 +39,11 @@ module.exports = function(agenda) {
 					identifier: data.identifier,
 					message: data.message
 				});
+
+				// Call success with data
+				successCallback(derivedJobName);
+			} else {
+				failureCallback("Incorrect data parameters.");
 			}
 		}
 	};

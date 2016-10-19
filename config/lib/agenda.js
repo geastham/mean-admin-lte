@@ -28,6 +28,9 @@ module.exports = function (app, db, jobs) {
     }
   });
 
+  // Add jobTypes to agenda object
+  agenda.jobTypes = jobTypes;
+
   // Setup recurrance
   agenda.on('ready', function() {
     // Start agenda
