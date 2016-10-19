@@ -13,14 +13,6 @@ module.exports = function (app, db) {
 
   // Setup recurrance
   agenda.on('ready', function() {
-    /*agenda.define('hello world', function(job, done) {
-      console.log("Hello world...");
-      done();
-    });*/
-
-    // run say hello
-    agenda.every('2 seconds', 'hello world');
-
     // Start agenda
     agenda.start();
   });

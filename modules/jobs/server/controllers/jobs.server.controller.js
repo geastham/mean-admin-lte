@@ -12,8 +12,6 @@ exports.list = function (req, res) {
   // Grab agenda instance
   var agenda = req.app.get('agenda');
 
-
-
   req.json("list jobs...");
 };
 
@@ -21,8 +19,12 @@ exports.list = function (req, res) {
  * Create a new job
  */
 exports.create = function (req, res) {
-  // Grab message
-  var message = req.body.message ? req.body.message : "... nothing to say.";
+  // Grab job creation info
+  var moduleName = req.body.moduleName;
+  var jobType = req.body.jobType;
+
+  // Grab data payload
+  var data = req.body.data ? req.body.data : {};
 
   // Grab agenda instance
   var agenda = req.app.get('agenda');
@@ -31,15 +33,6 @@ exports.create = function (req, res) {
   if(agenda) {
     // Define job by loading from jobs directory
     //require('./../jobs/example.server.job')(agenda);
-
-    // Start jobs
-    //agenda.every('10 seconds', 'say hello');
-    //agenda.start(); // trigger queue process
-
-    agenda.define('hello world', function(job, done) {
-      console.log("Hello: " + message);
-      done();
-    });
 
     // Return request
     res.json({
