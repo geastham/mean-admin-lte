@@ -212,7 +212,7 @@ module.exports.initErrorRoutes = function (app) {
  * Configure agenda
  */
 module.exports.initAgenda = function(app, db) {
-  var agenda = require('./agenda')(app,db);
+  var agenda = require('./agenda')(app,db,config.files.server.jobs);
 
   // Make agenda globally accessible
   app.set('agenda', agenda);

@@ -6,7 +6,7 @@
 // var foo = require('bar')
 
 // Set global module namespace
-var moduleName = "exampleJobs"
+var moduleName = "exampleJobs";
 
 module.exports = function(agenda) {
 	// Create jobs object
@@ -24,8 +24,20 @@ module.exports = function(agenda) {
 		 */
 		printToConsole: function(interval, data) {
 			if(data.identifer && data.message) {
-				agenda.define('printToConsole - ' + data.identifier, function(job, done) {
+				// Create derived job name
+				var derivedJobName = moduleName + ':printToConsole:' + data.identifier;
+
+				// Define job
+				agenda.define(derivedJobName, function(job, done) {
 					console.log(job.attrs.data.message);
+				});
+
+				// Schedule job
+				agenda.every(interval, derivedJobName, {
+					moduleName: moduleName,
+					jobName: "printToConsole",
+					identifier: data.identifier,
+					message: data.message
 				});
 			}
 		}

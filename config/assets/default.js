@@ -44,6 +44,7 @@ module.exports = {
     models: 'modules/*/server/models/**/*.js',
     routes: ['modules/!(core)/server/routes/**/*.js', 'modules/core/server/routes/**/*.js'],
     sockets: 'modules/*/server/sockets/**/*.js',
+    jobs: 'modules/*/server/jobs/**/*.js',
     config: 'modules/*/server/config/*.js',
     policies: 'modules/*/server/policies/*.js',
     views: 'modules/*/server/views/*.html'

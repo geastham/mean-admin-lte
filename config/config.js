@@ -126,6 +126,9 @@ var initGlobalConfigFiles = function (config, assets) {
   // Setting Globbed policies files
   config.files.server.policies = getGlobbedPaths(assets.server.policies);
 
+  // Setting Globbed job files
+  config.files.server.jobs = getGlobbedPaths(assets.server.jobs);
+
   // Setting Globbed js files
   config.files.client.js = getGlobbedPaths(assets.client.lib.js, 'public/').concat(getGlobbedPaths(assets.client.js, ['public/']));
 
