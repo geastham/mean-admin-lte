@@ -209,6 +209,16 @@ module.exports.initErrorRoutes = function (app) {
 };
 
 /**
+ * Configure agenda
+ */
+module.exports.initAgenda = function(app, db) {
+  var agenda = require('./agenda')(app,db);
+
+  // Make agenda globally accessible
+  app.set('agenda', agenda);
+};
+
+/**
  * Configure Socket.io
  */
 module.exports.configureSocketIO = function (app, db) {
@@ -255,6 +265,9 @@ module.exports.init = function (db) {
 
   // Initialize error routes
   this.initErrorRoutes(app);
+
+  // Initialize agenda
+  this.initAgenda(app, db);
 
   // Configure Socket.io
   app = this.configureSocketIO(app, db);
