@@ -23,8 +23,10 @@ module.exports = function(agenda) {
 		 *
 		 */
 		printToConsole: function(interval, data, successCallback, failureCallback) {
+			
 			// Parsed data
 			var parsedData = JSON.parse(data);
+			console.log(parsedData);
 
 			// If necessary data parameters exist -- create job
 			if(parsedData.identifier && parsedData.message) {
