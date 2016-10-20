@@ -53,7 +53,7 @@ exports.create = function (req, res) {
   // If agenda exists - create the job
   if(agenda) {
     // Lookup module name parameters
-    if(agenda.jobTypes && _.has(agenda.jobTypes, moduleName) && agenda.jobTypes[jobName]) {
+    if(agenda.jobTypes && _.has(agenda.jobTypes, moduleName) && agenda.jobTypes[moduleName][jobName]) {
       // Call configured job type with parsed data
       agenda.jobTypes[moduleName][jobName](interval, data,
         // Success callback
@@ -74,7 +74,7 @@ exports.create = function (req, res) {
     } else {
       res.json({
         status: "FAILED",
-        message: "ERROR: Could not find the appropriate configured module [" + module + "] and job name [" + jobName + "]"
+        message: "ERROR: Could not find the appropriate configured module [" + moduleName + "] and job name [" + jobName + "]"
       });
     }
   } else {

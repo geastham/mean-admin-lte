@@ -22,7 +22,11 @@ module.exports = function (app, db, jobs) {
     if(!err) {
       _.forEach(jobs, function(job) {
         if(job.attrs.data && job.attrs.data.moduleName && job.attrs.data.jobName) {
-          jobTypes[job.attrs.data.moduleName][job.attrs.data.jobName](job.repeatInterval, job.data);
+          console.log(job.attrs.data);
+          console.log(jobTypes[job.attrs.data.moduleName][job.attrs.data.jobName]);
+          console.log(job.attrs.repeatInterval);
+          console.log(job.attrs.data);
+          //jobTypes[job.attrs.data.moduleName][job.attrs.data.jobName](job.attrs.repeatInterval, job.attrs.data, function() {}, function() {});
         }
       });
     }

@@ -23,9 +23,13 @@ module.exports = function(agenda) {
 		 *
 		 */
 		printToConsole: function(interval, data, successCallback, failureCallback) {
-			if(data.identifer && data.message) {
+			// Parsed data
+			var parsedData = JSON.parse(data);
+
+			// If necessary data parameters exist -- create job
+			if(parsedData.identifier && parsedData.message) {
 				// Create derived job name
-				var derivedJobName = moduleName + ':printToConsole:' + data.identifier;
+				var derivedJobName = moduleName + ':printToConsole:' + parsedData.identifier;
 
 				// Define job
 				agenda.define(derivedJobName, function(job, done) {
@@ -36,8 +40,8 @@ module.exports = function(agenda) {
 				agenda.every(interval, derivedJobName, {
 					moduleName: moduleName,
 					jobName: "printToConsole",
-					identifier: data.identifier,
-					message: data.message
+					identifier: parsedData.identifier,
+					message: parsedData.message
 				});
 
 				// Call success with data
