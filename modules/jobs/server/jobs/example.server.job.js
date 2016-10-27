@@ -8,7 +8,7 @@
 // Set global module namespace
 var moduleName = "exampleJobs";
 
-module.exports = function(agenda) {
+module.exports = function(defineJob) {
 	// Create jobs object
 	var jobs = {};
 
@@ -20,14 +20,11 @@ module.exports = function(agenda) {
 		 *  - Data Requirements -
 		 *	* identifier: unique id to ensure unique job creation
 		 *  * message: string message that you wish to print to console
-		 *
 		 */
 		printToConsole: function(interval, data, successCallback, failureCallback) {
-			//console.log(interval, data, successCallback, failureCallback);
-			
-			// Parsed data
+			// Parse data
 			var parsedData = data;
-			if(typeof data === 'string') {
+			if(typeof data === "string") {
 				parsedData = JSON.parse(data);
 			}
 
@@ -39,7 +36,18 @@ module.exports = function(agenda) {
 				var derivedJobName = moduleName + ':printToConsole:' + parsedData.identifier; // new job at system startup
 
 				// Define job
-				agenda.define(derivedJobName, function(job, done) {
+				defineJob(interval, derivedJobName, {
+					moduleName: moduleName,
+			        jobName: "printToConsole",
+			        startDate: startDate,
+			        identifier: parsedData.identifier,
+			        message: parsedData.message
+				}, function(jobData) {
+					console.log("[" + jobData.startDate + "] " + jobData.message);
+				});
+
+				// Define job
+				/*agenda.define(derivedJobName, function(job, done) {
 					console.log("[" + job.attrs.data.startDate + "] " + job.attrs.data.message);
 					done();
 				});
@@ -49,9 +57,9 @@ module.exports = function(agenda) {
 					moduleName: moduleName,
 					jobName: "printToConsole",
 					startDate: startDate,
-					identifier: parsedData.identifier,
-					message: parsedData.message
-				});
+					identifier: data.identifier,
+					message: data.message
+				});*/
 
 				// Call success with data
 				if(successCallback) {

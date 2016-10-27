@@ -14,7 +14,17 @@ module.exports = function (app, db, jobs) {
 
   // Iterate over each modules jobs and initialize
   _.forEach(jobs, function(jobs) {
-    _.extend(jobTypes, require('./../../' + jobs)(agenda));
+    _.extend(jobTypes, require('./../../' + jobs)(function(interval, derivedJobName, data, cb) {
+      agenda.define(derivedJobName, function(job, done) {
+        if(cb) {
+          cb(job.attrs.data);
+        }
+        done(); // Make sure to call - otherwise jobs do not run
+      });
+
+      // Schedule job
+      agenda.every(interval, derivedJobName, data);
+    }));
   });
 
   // Get all configured jobs and load them into memory
@@ -38,8 +48,9 @@ module.exports = function (app, db, jobs) {
                   console.log("--> Scheduling startup:" + derivedJobName + " to fire " + job.attrs.nextRunAt);
 
                   // Create a one-time startup job to run a loaded job at the desired startup time
-                  agenda.define("startup:" + derivedJobName, function(job, done) {
+                  agenda.define("startup:" + derivedJobName, function(startupJob, done) {
                     job.run(function(err, job) {});
+                    done();
                   });
 
                   agenda.schedule(job.attrs.nextRunAt, "startup:" + derivedJobName);
