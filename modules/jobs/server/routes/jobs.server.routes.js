@@ -10,4 +10,12 @@ module.exports = function (app) {
   app.route('/api/jobs/')
     .get(jobs.list)
     .post(jobs.create);
+
+  // Jobs colelction overview
+  app.route('/api/jobs/overview')
+    .get(jobs.overview);
+
+  // Jobs advanced search
+  app.route('/api/jobs/find')
+    .post(jobs.find);
 };
