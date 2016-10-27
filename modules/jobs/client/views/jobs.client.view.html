@@ -78,16 +78,20 @@
                   <th>Last Run Started</th>
                   <th>Next Run Starts</th>
                   <th>Last Run Finished</th>
-                  <th>Locked</th>
                 </tr>
                 <tr ng-repeat="job in jobs">
                   <td><input type="checkbox"></td>
-                  <td class="job-listing-status"><span class="lavel lavel-primary">Scheduled</span></td>
+                  <td class="job-listing-status">
+                    <span class="label bg-light-blue" ng-if="job.scheduled">Scheduled</span>
+                    <span class="label bg-blue" ng-if="job.queued">Queued</span>
+                    <span class="label bg-yello" ng-if="job.running">Running</span>
+                    <span class="label bg-green" ng-if="job.completed">Completed</span>
+                    <span class="label bg-red" ng-if="job.failed">Failed</span>
+                  </td>
                   <td class="job-listing-name">{{job.job.data.jobName}} <i class="fa fa-fw fa-info-circle" title="{{job.job.data.derivedJobName}}"></i></td>
                   <td class="job-listing-last-run-started">{{job.job.lastRunAt.slice(0,16).replace('T', ' ')}}</td>
                   <td class="job-listing-next-run">{{job.job.nextRunAt.slice(0,16).replace('T', ' ')}}</td>
                   <td class="job-listing-last-run-finished">{{job.job.lastFinishedAt.slice(0,16).replace('T', ' ')}}</td>
-                  <td class="job-listing-locked"></td>
                 </tr>
               </tbody>
             </table>
