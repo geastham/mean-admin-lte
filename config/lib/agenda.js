@@ -7,7 +7,7 @@ var Agenda = require('agenda'),
 // Initialize agenda and make globally accessible
 module.exports = function (app, db, jobs) {
   // Initialize agenda instance
-  var agenda = new Agenda({ mongo: db.connections[0].db, db: { collection: "jobs" } });
+  var agenda = new Agenda({ mongo: db.connections[0].db, db: { collection: "jobs" }, processEvery: '5 seconds' });
 
   // Load job types (define in each module)
   var jobTypes = {};
@@ -22,14 +22,36 @@ module.exports = function (app, db, jobs) {
     if(!err) {
       _.forEach(jobs, function(job) {
         if(job.attrs.data && job.attrs.data.moduleName && job.attrs.data.jobName) {
-          //console.log(job.attrs.data);
-          //console.log(jobTypes[job.attrs.data.moduleName][job.attrs.data.jobName]);
-          //console.log(job.attrs.repeatInterval);
-          jobTypes[job.attrs.data.moduleName][job.attrs.data.jobName]('2 seconds', { moduleName: 'exampleJobs',
-                                                                                      jobName: 'printToConsole',
-                                                                                      identifier: 'rosie',
-                                                                                      message: 'Hello Rosiepie!' }, 
-                                                                                        function() {}, function() {});
+          // Call each job's init function
+          var interval = (job.attrs.repeatInterval) ? job.attrs.repeatInterval : '';
+          jobTypes[job.attrs.data.moduleName][job.attrs.data.jobName](interval, job.attrs.data,
+            // Success callback
+            function(interval, derivedJobName) {
+              console.log("Loaded " + derivedJobName + " into active memory with interval " + interval);
+
+              // Check to see if the job's next run already passed (and if so, fire the job)
+              if(job.attrs.nextRunAt) {
+                if(job.attrs.nextRunAt < Date.now()) { 
+                  console.log("--> Triggering " + derivedJobName + " to fire immediately.");
+                  job.run(function(err, job) {});
+                } else {
+                  console.log("--> Scheduling startup:" + derivedJobName + " to fire " + job.attrs.nextRunAt);
+
+                  // Create a one-time startup job to run a loaded job at the desired startup time
+                  agenda.define("startup:" + derivedJobName, function(job, done) {
+                    job.run(function(err, job) {});
+                  });
+
+                  agenda.schedule(job.attrs.nextRunAt, "startup:" + derivedJobName);
+                }
+              }
+            },
+
+            // Failure callback
+            function(message) {
+              console.log(message);
+            }
+          );
         }
       });
     }
