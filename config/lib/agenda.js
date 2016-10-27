@@ -19,7 +19,7 @@ module.exports = function (app, db, jobs) {
       // Define job using agenda API
       agenda.define(derivedJobName, function(job, done) {
         // Extend data with module and job
-        var jobData = _.extend(job.attrs.data, { moduleName: moduleName, jobName: jobName });
+        var jobData = _.extend(job.attrs.data, { moduleName: moduleName, jobName: jobName, derivedJobName: derivedJobName });
 
         // Execut job callback
         if(cb) {
@@ -60,7 +60,10 @@ module.exports = function (app, db, jobs) {
                     done();
                   });
 
-                  agenda.schedule(job.attrs.nextRunAt, "startup:" + derivedJobName);
+                  agenda.schedule(job.attrs.nextRunAt, "startup:" + derivedJobName, {
+                    jobName: "startup",
+                    derivedJobName: "startup:" + derivedJobName
+                  });
                 }
               }
             },

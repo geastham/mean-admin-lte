@@ -16,17 +16,17 @@
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
             <li class="active"><a href="#"><i class="fa fa-circle-o"></i> All
-              <span class="label label-primary pull-right">{{overview.total}}</span></a></li>
+              <span class="label label-primary pull-right" ng-if="overview.total > 0">{{overview.total}}</span></a></li>
             <li><a href="#" class="text-light-blue"><i class="fa fa-circle-o text-light-blue"></i> Scheduled
-              <span class="label label-primary pull-right">{{overview.scheduled}}</span></a></li>
+              <span class="label label-primary pull-right" ng-if="overview.scheduled > 0">{{overview.scheduled}}</span></a></li>
             <li><a href="#" class="text-blue"><i class="fa fa-circle-o text-blue"></i> Queued
-              <span class="label label-primary pull-right">{{overview.queued}}</span></a></li>
+              <span class="label label-primary pull-right" ng-if="overview.queued > 0">{{overview.queued}}</span></a></li>
             <li><a href="#" class="text-yellow"><i class="fa fa-circle-o text-yellow"></i> Running
-              <span class="label label-primary pull-right">{{overview.running}}</span></a></li>
+              <span class="label label-primary pull-right" ng-if="overview.running > 0">{{overview.running}}</span></a></li>
             <li><a href="#" class="text-green"><i class="fa fa-circle-o text-green"></i> Completed
-              <span class="label label-primary pull-right">{{overview.completed}}</span></a></li>
+              <span class="label label-primary pull-right" ng-if="overview.completed > 0">{{overview.completed}}</span></a></li>
             <li><a href="#" class="text-red"><i class="fa fa-circle-o text-red"></i> Failed
-              <span class="label label-primary pull-right">{{overview.failed}}</span></a></li>
+              <span class="label label-primary pull-right" ng-if="overview.failed > 0">{{overview.failed}}</span></a></li>
           </ul>
         </div>
         <!-- /.box-body -->
@@ -83,7 +83,7 @@
                 <tr ng-repeat="job in jobs">
                   <td><input type="checkbox"></td>
                   <td class="job-listing-status"><span class="lavel lavel-primary">Scheduled</span></td>
-                  <td class="job-listing-name">{{job.job.data.jobName}}</td>
+                  <td class="job-listing-name">{{job.job.data.jobName}} <i class="fa fa-fw fa-info-circle" title="{{job.job.data.derivedJobName}}"></i></td>
                   <td class="job-listing-last-run-started">{{job.job.lastRunAt.slice(0,16).replace('T', ' ')}}</td>
                   <td class="job-listing-next-run">{{job.job.nextRunAt.slice(0,16).replace('T', ' ')}}</td>
                   <td class="job-listing-last-run-finished">{{job.job.lastFinishedAt.slice(0,16).replace('T', ' ')}}</td>
