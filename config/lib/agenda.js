@@ -80,6 +80,16 @@ module.exports = function (app, db, jobs) {
 
   // Setup recurrance
   agenda.on('ready', function() {
+    // Create indexes
+    agenda._collection.createIndexes([
+      {key: { nextRunAt: -1, lastRunAt: -1, lastFinishedAt: -1 }},
+      {key: { name: 1, nextRunAt: -1, lastRunAt: -1, lastFinishedAt: -1 }}
+    ], function (err, result) {
+      if (err) {
+        console.warn('Jobs module indexes might not exist. Performance may decrease.');
+      }
+    });
+
     // Start agenda
     agenda.start();
   });
