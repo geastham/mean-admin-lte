@@ -14,11 +14,18 @@ module.exports = function (app, db, jobs) {
 
   // Iterate over each modules jobs and initialize
   _.forEach(jobs, function(jobs) {
-    _.extend(jobTypes, require('./../../' + jobs)(function(interval, derivedJobName, data, cb) {
+    _.extend(jobTypes, require('./../../' + jobs)(function(moduleName, jobName, interval, derivedJobName, data, cb) {
+
+      // Define job using agenda API
       agenda.define(derivedJobName, function(job, done) {
+        // Extend data with module and job
+        var jobData = _.extend(job.attrs.data, { moduleName: moduleName, jobName: jobName });
+
+        // Execut job callback
         if(cb) {
-          cb(job.attrs.data);
+          cb(jobData);
         }
+
         done(); // Make sure to call - otherwise jobs do not run
       });
 

@@ -8,6 +8,9 @@
 // Set global module namespace
 var moduleName = "exampleJobs";
 
+// Set global job name
+var jobName = "printToConsole";
+
 module.exports = function(defineJob) {
 	// Create jobs object
 	var jobs = {};
@@ -33,33 +36,16 @@ module.exports = function(defineJob) {
 				var startDate = (parsedData.startDate) ? parsedData.startDate : Date.now();
 
 				// Create derived job name
-				var derivedJobName = moduleName + ':printToConsole:' + parsedData.identifier; // new job at system startup
+				var derivedJobName = moduleName + ':' + jobName + ':' + parsedData.identifier; // new job at system startup
 
 				// Define job
-				defineJob(interval, derivedJobName, {
-					moduleName: moduleName,
-			        jobName: "printToConsole",
+				defineJob(moduleName, jobName, interval, derivedJobName, {
 			        startDate: startDate,
 			        identifier: parsedData.identifier,
 			        message: parsedData.message
 				}, function(jobData) {
 					console.log("[" + jobData.startDate + "] " + jobData.message);
 				});
-
-				// Define job
-				/*agenda.define(derivedJobName, function(job, done) {
-					console.log("[" + job.attrs.data.startDate + "] " + job.attrs.data.message);
-					done();
-				});
-
-				// Schedule job
-				agenda.every(interval, derivedJobName, {
-					moduleName: moduleName,
-					jobName: "printToConsole",
-					startDate: startDate,
-					identifier: data.identifier,
-					message: data.message
-				});*/
 
 				// Call success with data
 				if(successCallback) {
