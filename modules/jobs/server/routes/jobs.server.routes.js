@@ -18,4 +18,8 @@ module.exports = function (app) {
   // Jobs advanced search
   app.route('/api/jobs/find')
     .post(jobs.find);
+
+  // Jobs wait support
+  app.route('/api/jobs/test/wait')
+    .post(jobs.wait);
 };

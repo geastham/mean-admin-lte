@@ -305,4 +305,14 @@ exports.create = function (req, res) {
   }
 };
 
+/**
+ * Helper for long-running async tasks (sample server jobs)
+ */
+exports.wait = function (req, res) {
+  // Get timeout -- if available
+  var waitTime = (req.body.waitTime) ? parseInt(req.body.waitTime) : 20000; // 20 second default
 
+  setTimeout(function () { 
+    res.json("Finished running after " + waitTime);
+  }, waitTime);
+};

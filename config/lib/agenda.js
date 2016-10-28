@@ -23,7 +23,13 @@ module.exports = function (app, db, jobs) {
 
         // Execut job callback
         if(cb) {
-          cb(jobData);
+          try {
+            cb(jobData);
+          } catch (err) {
+            console.log("Caught failed job! - " + derivedJobName);
+            job.fail(err); // call Agenda fail function
+            job.save(); // save updated job
+          }
         }
 
         done(); // Make sure to call - otherwise jobs do not run
