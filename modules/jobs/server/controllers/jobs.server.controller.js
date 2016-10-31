@@ -10,7 +10,7 @@ var request = require('request'),
  *  GetJobs -- helper function
  *  Credit: https://github.com/joeframbach/agendash/blob/master/lib/agendash.js#L207-L271
  */
-function getJobs (agenda, job, query, state, callback) {
+function getJobs (agenda, job, query, state, limit, skip, callback) {
   var preMatch = {};
   if (job) preMatch.name = job;
   else if (query) preMatch.name = {$regex: query};
@@ -18,8 +18,8 @@ function getJobs (agenda, job, query, state, callback) {
   var postMatch = {};
   if (state) postMatch[state] = true;
 
-  var limit = 200; // todo UI param
-  var skip = 0; // todo UI param
+  limit = (limit) ? limit : 50;
+  skip = (skip) ? skip : 0;
 
   agenda._collection.aggregate([
     {$match: preMatch},
@@ -86,7 +86,7 @@ exports.list = function (req, res) {
 
   if(agenda) {
     // Leverage getJob function
-    getJobs(agenda, null, null, null, function(err, jobs) {
+    getJobs(agenda, null, null, null, null, null, function(err, jobs) {
       if(err) {
           res.json({
             status: "FAILED",
@@ -116,10 +116,12 @@ exports.find = function(req, res) {
   var job = (req.body.job) ? req.body.job : null;
   var query = (req.body.query) ? req.body.query : null;
   var state = (req.body.state) ? req.body.state : null;
+  var limit = (req.body.limit) ? parseInt(req.body.limit) : 50;
+  var skip = (req.body.skip) ? parseInt(req.body.skip) : 0;
 
   if(agenda) {
     // Leverage getJob function
-    getJobs(agenda, job, query, state, function(err, jobs) {
+    getJobs(agenda, job, query, state, limit, skip, function(err, jobs) {
       if(err) {
           res.json({
             status: "FAILED",
@@ -266,7 +268,8 @@ exports.create = function (req, res) {
   var interval = req.body.interval ? req.body.interval : ''; // assume no repeat if not set
 
   // Grab data payload
-  var data = req.body.data ? JSON.parse(req.body.data) : {}; // assume no data if not set
+  var data = req.body.data ? req.body.data : {}; // assume no data if not set
+  data = (typeof data === 'string') JSON.parse(data) : data;
 
   // Grab agenda instance
   var agenda = req.app.get('agenda');

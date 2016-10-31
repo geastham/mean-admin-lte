@@ -8,6 +8,9 @@ angular.module('jobs').controller('JobsController', ['$scope', '$location', '$st
 
     // Initialize jobs
     $scope.jobs = [];
+    $scope.totalJobs = 0;
+    $scope.currentPage = 1;
+    $scope.pageSize = 50;
 
     // Initialize overview
     $scope.overview = {};
@@ -16,7 +19,9 @@ angular.module('jobs').controller('JobsController', ['$scope', '$location', '$st
     $scope.refinements = {
       job: null,
       query: null,
-      state: null
+      state: null,
+      limit: 50,
+      skip: 0
     };
 
     // Initial job timer
@@ -28,6 +33,7 @@ angular.module('jobs').controller('JobsController', ['$scope', '$location', '$st
       Jobs.list().then(function(jobs) {
         console.log(jobs);
         $scope.jobs = jobs;
+        //$scope.pageSize = (jobs.length < $scope.refinements.limit) ? (jobs.length + 1) : $scope.refinements
       });
 
       // Clear pre-existing timer
