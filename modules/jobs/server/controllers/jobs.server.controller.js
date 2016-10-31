@@ -10,9 +10,10 @@ var request = require('request'),
  *  GetJobs -- helper function
  *  Credit: https://github.com/joeframbach/agendash/blob/master/lib/agendash.js#L207-L271
  */
-function getJobs (agenda, job, state, callback) {
+function getJobs (agenda, job, query, state, callback) {
   var preMatch = {};
   if (job) preMatch.name = job;
+  else if (query) preMatch.name = {$regex: query};
 
   var postMatch = {};
   if (state) postMatch[state] = true;
@@ -85,7 +86,7 @@ exports.list = function (req, res) {
 
   if(agenda) {
     // Leverage getJob function
-    getJobs(agenda, null, null, function(err, jobs) {
+    getJobs(agenda, null, null, null, function(err, jobs) {
       if(err) {
           res.json({
             status: "FAILED",
@@ -112,12 +113,13 @@ exports.find = function(req, res) {
   var agenda = req.app.get('agenda');
 
   // Get query parameters
-  var job = req.body.job;
-  var state = req.body.state;
+  var job = (req.body.job) ? req.body.job : null;
+  var query = (req.body.query) ? req.body.query : null;
+  var state = (req.body.state) ? req.body.state : null;
 
   if(agenda) {
     // Leverage getJob function
-    getJobs(agenda, function(err, jobs) {
+    getJobs(agenda, job, query, state, function(err, jobs) {
       if(err) {
           res.json({
             status: "FAILED",

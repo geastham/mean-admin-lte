@@ -15,17 +15,17 @@
         </div>
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
-            <li class="active"><a href="#"><i class="fa fa-circle-o"></i> All
+            <li class="active" ng-click="filterState($event)"><a href="#"><i class="fa fa-circle-o"></i> All
               <span class="label label-primary pull-right" ng-if="overview.total > 0">{{overview.total}}</span></a></li>
-            <li><a href="#" class="text-light-blue"><i class="fa fa-circle-o text-light-blue"></i> Scheduled
+            <li ng-click="filterState($event, 'scheduled')"><a href="#" class="text-light-blue"><i class="fa fa-circle-o text-light-blue"></i> Scheduled
               <span class="label label-primary pull-right" ng-if="overview.scheduled > 0">{{overview.scheduled}}</span></a></li>
-            <li><a href="#" class="text-blue"><i class="fa fa-circle-o text-blue"></i> Queued
+            <li ng-click="filterState($event, 'queued')"><a href="#" class="text-blue"><i class="fa fa-circle-o text-blue"></i> Queued
               <span class="label label-primary pull-right" ng-if="overview.queued > 0">{{overview.queued}}</span></a></li>
-            <li><a href="#" class="text-yellow"><i class="fa fa-circle-o text-yellow"></i> Running
+            <li ng-click="filterState($event, 'running')"><a href="#" class="text-yellow"><i class="fa fa-circle-o text-yellow"></i> Running
               <span class="label label-primary pull-right" ng-if="overview.running > 0">{{overview.running}}</span></a></li>
-            <li><a href="#" class="text-green"><i class="fa fa-circle-o text-green"></i> Completed
+            <li ng-click="filterState($event, 'completed')"><a href="#" class="text-green"><i class="fa fa-circle-o text-green"></i> Completed
               <span class="label label-primary pull-right" ng-if="overview.completed > 0">{{overview.completed}}</span></a></li>
-            <li><a href="#" class="text-red"><i class="fa fa-circle-o text-red"></i> Failed
+            <li ng-click="filterState($event, 'failed')"><a href="#" class="text-red"><i class="fa fa-circle-o text-red"></i> Failed
               <span class="label label-primary pull-right" ng-if="overview.failed > 0">{{overview.failed}}</span></a></li>
           </ul>
         </div>
@@ -41,7 +41,7 @@
 
           <div class="box-tools pull-right">
             <div class="has-feedback">
-              <input type="text" class="form-control input-sm" placeholder="Search Jobs">
+              <input type="text" class="form-control input-sm" ng-keypress="searchJobs($event)" placeholder="Search Jobs">
               <span class="glyphicon glyphicon-search form-control-feedback"></span>
             </div>
           </div>

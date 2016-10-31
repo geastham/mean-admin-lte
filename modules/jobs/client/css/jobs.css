@@ -2,3 +2,7 @@
 .jobs-primary-action-button {
   margin-bottom: 20px;
 }
+
+li.active {
+	text: white;
+}
