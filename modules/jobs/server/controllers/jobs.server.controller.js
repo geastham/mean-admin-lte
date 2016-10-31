@@ -264,7 +264,7 @@ exports.create = function (req, res) {
   var interval = req.body.interval ? req.body.interval : ''; // assume no repeat if not set
 
   // Grab data payload
-  var data = req.body.data ? req.body.data : {}; // assume no data if not set
+  var data = req.body.data ? JSON.parse(req.body.data) : {}; // assume no data if not set
 
   // Grab agenda instance
   var agenda = req.app.get('agenda');

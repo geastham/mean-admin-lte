@@ -21,15 +21,9 @@ module.exports = function(defineJob) {
 		 *	* identifier: unique id to ensure unique job creation
 		 *  * message: string message that you wish to print to console
 		 */
-		printToConsole: function(interval, data, successCallback, failureCallback) {
+		printToConsole: function(interval, parsedData, successCallback, failureCallback) {
 			// Set local job name
 			var jobName = "printToConsole";
-
-			// Parse data
-			var parsedData = data;
-			if(typeof data === "string") {
-				parsedData = JSON.parse(data);
-			}
 
 			// If necessary data parameters exist -- create job
 			if(parsedData.identifier && parsedData.message) {
@@ -59,15 +53,9 @@ module.exports = function(defineJob) {
 		/*	Always Fails: example of a job that always fails
 		 *  ---------------------
 		 */
-		alwaysFails: function(interval, data, successCallback) {
+		alwaysFails: function(interval, parsedData, successCallback) {
 			// Set local job name
 			var jobName = "alwaysFails";
-
-			// Parse data
-			var parsedData = data;
-			if(typeof data === "string") {
-				parsedData = JSON.parse(data);
-			}
 
 			// Define job
 			var startDate = (parsedData.startDate) ? parsedData.startDate : Date.now();
@@ -85,15 +73,9 @@ module.exports = function(defineJob) {
 		/*	Always Fails: example of a job that always fails
 		 *  ---------------------
 		 */
-		alwaysRunning: function(interval, data, successCallback) {
+		alwaysRunning: function(interval, parsedData, successCallback) {
 			// Set local job name
 			var jobName = "alwaysRunning";
-
-			// Parse data
-			var parsedData = data;
-			if(typeof data === "string") {
-				parsedData = JSON.parse(data);
-			}
 
 			// Define job
 			var startDate = (parsedData.startDate) ? parsedData.startDate : Date.now();
