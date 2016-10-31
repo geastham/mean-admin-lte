@@ -50,7 +50,7 @@ module.exports = function (app, db, jobs) {
           jobTypes[job.attrs.data.moduleName][job.attrs.data.jobName](interval, job.attrs.data,
             // Success callback
             function(interval, derivedJobName) {
-              console.log("Loaded " + derivedJobName + " into active memory with interval " + interval);
+              console.log("\nLoaded " + derivedJobName + " into active memory with interval " + interval);
 
               // Check to see if the job's next run already passed (and if so, fire the job)
               if(job.attrs.nextRunAt) {

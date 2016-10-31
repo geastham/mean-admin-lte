@@ -68,30 +68,6 @@ module.exports = function(defineJob) {
 			if(successCallback) {
 				successCallback(interval, jobName + ":" + startDate);
 			}
-		},
-
-		/*	Always Fails: example of a job that always fails
-		 *  ---------------------
-		 */
-		alwaysRunning: function(interval, parsedData, successCallback) {
-			// Set local job name
-			var jobName = "alwaysRunning";
-
-			// Define job
-			var startDate = (parsedData.startDate) ? parsedData.startDate : Date.now();
-			defineJob(moduleName, jobName, interval, jobName + ":" + startDate, {startDate: startDate}, function(jobData) {
-				request.post({url:'http://localhost:3000/api/jobs/test/wait', formData: {}}, function optionalCallback(err, httpResponse, body) {
-				  if (err) {
-				    return console.error('Wait test function failed!', err);
-				  }
-				  console.log(body);
-				});
-			});
-
-			// Call success with data
-			if(successCallback) {
-				successCallback(interval, jobName + ":" + startDate);
-			}
 		}
 	};
 
