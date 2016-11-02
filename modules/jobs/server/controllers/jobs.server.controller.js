@@ -269,7 +269,7 @@ exports.create = function (req, res) {
 
   // Grab data payload
   var data = req.body.data ? req.body.data : {}; // assume no data if not set
-  data = (typeof data === 'string') JSON.parse(data) : data;
+  data = (typeof data === 'string') ? JSON.parse(data) : data;
 
   // Grab agenda instance
   var agenda = req.app.get('agenda');
